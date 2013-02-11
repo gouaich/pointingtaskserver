@@ -1,0 +1,28 @@
+@(patients: List[Patient], patientForm: Form[Patient]) 
+
+@import helper._
+
+@main("Patients") {
+  
+  <h1>@patients.size() Patient(s)</h1>
+  
+  <ul>
+    @for(p <- patients) {
+      <li>@p.givenName
+      @form(controllers.routes.Application.deletePatient(p.id.toString())) { 
+         <input type="submit" value="Delete"> 
+      }
+      </li>
+    }
+  </ul>
+  
+  <h2>Add a new patient</h2>
+  
+  @form(routes.Application.newPatient()) {
+     @inputText(patientForm("givenName")) 
+     @inputDate(patientForm("strokeDate"))
+     <input type="submit" value="Create">
+  
+  } 
+
+}
